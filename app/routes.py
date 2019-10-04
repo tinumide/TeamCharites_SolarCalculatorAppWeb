@@ -5,6 +5,42 @@ from app.models import User, Appliance
 from flask_login import login_user, current_user, logout_user, login_required
 import math
 
+import smtplib
+import ssl
+from email.message import EmailMessage
+
+
+@app.route("/email", methods=['GET', 'POST'])
+def send_email():
+    port = 587  # For starttls
+    smtp_server = "smtp.gmail.com"
+    sender_email = "summittinuade@gmail.com"
+    receiver_email = 'email'
+    password = 'tinuade2020'
+    user_name = 'name'
+    msg = EmailMessage()
+    msg['Subject'] = 'SOLAR CALCULATOR RESULT'
+    msg['From'] = sender_email
+    msg['To'] = receiver_email
+    msg.add_alternative(f"""\
+    <html>
+     <head></head>
+     <body>
+     Dear {user_name}, <br/><br/>
+     Click the link below to join the project empower whatsapp group</p>
+     <br/><br/>https://chat.whatsapp.com/CjrHVDbvFht7JqJKdR3QaE
+    </body>
+</html>""", subtype='html')
+    context = ssl.create_default_context()
+    with smtplib.SMTP(smtp_server, port) as server:
+        server.ehlo()  # Can be omitted
+        server.starttls(context=context)
+        server.ehlo()  # Can be omitted
+        server.login(sender_email, password)
+        server.send_message(msg)
+    return flash('Your result has been sent to your email!')
+
+
 suggest = {
     "Coffee Pot": 200,
     "Coffee Maker": 800,
@@ -127,18 +163,13 @@ def result():
     panel_capacity_needed = output_load / sun_hours
     solar_panel_power = int(data['solar_panel_power'])
     number_of_panels_needed = math.ceil(panel_capacity_needed / solar_panel_power)
-    # total_watt = data['total_watt']
-    # inverter_size = total_watt * 1.3
     battery_loss = 0.85
     depth_of_discharge = 0.6
     nominal_battery_voltage = int(data['battery_voltage'])
     days_of_autonomy = 3  # determined by user
     battery_required = (load * days_of_autonomy) / (battery_loss * depth_of_discharge * nominal_battery_voltage)
-    # result = {'status': 'oK', 'status_code': '200', 'number_of_panels_needed': number_of_panels_needed,
-    #           'inverter_size': inverter_size, 'battery_required': battery_required, }
     return redirect(url_for('results', panel_capacity_needed=panel_capacity_needed,
                             number_of_panels_needed=number_of_panels_needed, battery_required=battery_required))
-    # return redirect(url_for('results', defaultEmail=email))
 
 
 @app.route("/results", methods=['GET'])

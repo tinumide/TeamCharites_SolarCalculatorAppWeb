@@ -60,55 +60,8 @@ $("document").ready(function(){
 
         </p>
 
-<!--</div>-->
-<!--<div class="container">-->
-<!--    <div class="row">-->
-<!--        <a id="result" class="btn btn-primary login" href="{{ url_for('result') }}" >Result</a>-->
-<!--    </div>-->
-<!--</div>-->
 
-<!--<script type="text/javascript" src="{{ url_for('static', filename='js/app.js') }}"></script>-->
 
-    <script type=text/javascript>
-<!--        $(function() {-->
-<!--            $('#result').click(function(){-->
-<!--              $.ajax({-->
-<!--                url: '/result',-->
-<!--                data:{-->
-<!--                  total_power:$("#tpc").val();-->
-<!--                   solar_panel_power :$("#spp").val();-->
-<!--                    battery_voltage : $("#bv").val();-->
-<!--                    days_of_autonomy:$("#doa").val();-->
-<!--                },-->
-<!--                dataType: 'JSON',-->
-<!--                type: 'POST',-->
-<!--                success: function(data){-->
-<!--                    $("#result").html(data.result);-->
-<!--                }-->
-<!--                });-->
-<!--             });-->
-<!--        });-->
-$("document").ready(function(){
-    $("#result").click(function(){
-    console.log("hiiiiii");
-        var total_power = $("#tpc").val();
-        var solar_panel_power = $("#spp").val();
-        var battery_voltage  = $("#bv").val();
-        var days_of_autonomy = $("#doa").val();
-        $.post({
-            url: "http://localhost:5000/result/",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({"total_power": total_power, 'solar_panel_power':solar_panel_power, 'battery_voltage':battery_voltage,
-            'days_of_autonomy':days_of_autonomy})
-        }).done(function(data) {
-<!--            console.log(data);-->
- $("p").append(data);
-        });
-    });
-});
-
-</script>
 <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
 <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
