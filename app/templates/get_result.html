@@ -14,51 +14,60 @@
 
 
     <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-     <script type=text/javascript>
-$("document").ready(function(){
-    $("#result").click(function(){
-    console.log("hiiiiii");
-        var total_power = $("#tpc").val();
-        var solar_panel_power = $("#spp").val();
-        var battery_voltage  = $("#bv").val();
-        var days_of_autonomy = $("#doa").val();
-        $.post({
-            url: "/result",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({"total_power": total_power, 'solar_panel_power':solar_panel_power, 'battery_voltage':battery_voltage,
-            'days_of_autonomy':days_of_autonomy})
-        }).done(function(data) {
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+<!--     <script type=text/javascript>-->
+<!--$("document").ready(function(){-->
+<!--    $("#result").click(function(){-->
+<!--    console.log("hiiiiii");-->
+<!--        var total_power = $("#tpc").val();-->
+<!--        var solar_panel_power = $("#spp").val();-->
+<!--        var battery_voltage  = $("#bv").val();-->
+<!--        var days_of_autonomy = $("#doa").val();-->
+<!--        $.post({-->
+<!--            url: "/result",-->
+<!--            type: "POST",-->
+<!--            contentType: "application/json",-->
+<!--            data: JSON.stringify({"total_power": total_power, 'solar_panel_power':solar_panel_power, 'battery_voltage':battery_voltage,-->
+<!--            'days_of_autonomy':days_of_autonomy})-->
+<!--        }).done(function(data) {-->
 <!--            console.log(data);-->
- $("p").append(data);
-        });
-    });
-});
-
-</script>
+<!-- $("p").append(data);-->
+<!--        });-->
+<!--    });-->
+<!--});-->
+<!---->
+<!--</script>-->
 
 
 </head>
 <body>
 <div class="container">
-    <div class="row">
-    Total Power Consumption: <input id="tpc">
-    </div>
-    <div class="row">
-    Solar Panel Power: <input id="spp">
-    </div>
-    <div class="row">
-    Battery Voltage: <input id="bv">
-    </div>
-    <div class="row">
-    Days of autonomy: <input id="doa">
-    </div>
-    <button id="result">Result
+<!--    <div class="row">-->
+<!--    Total Power Consumption: <input id="tpc">-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--    Solar Panel Power: <input id="spp">-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--    Battery Voltage: <input id="bv">-->
+<!--    </div>-->
+<!--    <div class="row">-->
+<!--    Days of autonomy: <input id="doa">-->
+<!--    </div>-->
+<!--    <button id="result">Result</button>-->
 
-        <p>
+    <form method="post" action="http://127.0.0.1:5000/result">
+  Total Power Consumption:
+  <input type="number" name="total_power"><br>
+    Solar Panel Power:
+  <input type="number" name="solar_panel_power"><br>
+        Battery Voltage:
+  <input type="number" name="battery_voltage"><br>
+    Days of autonomy:
+  <input type="number" name="days_of_autonomy"><br>
+        <input type="submit" value="Done!"/>
+</form>
 
-        </p>
 
 
 

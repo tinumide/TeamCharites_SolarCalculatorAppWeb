@@ -155,7 +155,7 @@ def login():
 
 @app.route("/result", methods=['GET', 'POST'])
 def result():
-    data = request.get_json()
+    data = request.form
     print(data)
     sun_hours = 3.4
     load = int(data['total_power'])
@@ -166,7 +166,7 @@ def result():
     battery_loss = 0.85
     depth_of_discharge = 0.6
     nominal_battery_voltage = int(data['battery_voltage'])
-    days_of_autonomy = 3  # determined by user
+    days_of_autonomy = int(data['days_of_autonomy']) # determined by user
     battery_required = (load * days_of_autonomy) / (battery_loss * depth_of_discharge * nominal_battery_voltage)
     return redirect(url_for('results', panel_capacity_needed=panel_capacity_needed,
                             number_of_panels_needed=number_of_panels_needed, battery_required=battery_required))
